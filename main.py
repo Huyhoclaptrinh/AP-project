@@ -26,6 +26,25 @@ def admin_win():
 def admin_menu_win():
     admin_menu = Tk()
     admin_menu.geometry("300x300")
+    def addlist():
+        listbox.insert(END, entry.get())
+        entry.delete(0, END)
+
+    def removelist():
+        listbox.delete(listbox.curselection())
+    
+    
+    listbox = Listbox(admin_menu)
+    listbox.pack()
+    
+    entry = Entry(admin_menu)
+    entry.pack()
+    
+    button = Button(admin_menu, text="Add book",command=addlist)
+    button.pack()
+    
+    button = Button(admin_menu, text="Remove book",command=removelist)
+    button.pack()
 
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
 l1.grid(row=1,column=2,columnspan=2)
