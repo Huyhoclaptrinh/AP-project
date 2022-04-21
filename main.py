@@ -7,10 +7,25 @@ window.geometry("1000x900")
 def user_win():
     user = Tk()
     user.geometry("300x300")
+    bt_user_signin = Button(user,text="Sign in",width=20,command=user_menu_win).pack(side=LEFT)
+    bt_user_signup = Button(user,text="Sign up",width=20,command=user_signup_win).pack(side=RIGHT)
+
+def user_menu_win():
+    user_menu = Tk()
+    user_menu.geometry("300x300")
+    
+def user_signup_win():
+    user_signup = Tk()
+    user_signup.geometry("300x300")
     
 def admin_win():
     admin = Tk()
     admin.geometry("300x300")
+    bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_menu_win).pack()
+
+def admin_menu_win():
+    admin_menu = Tk()
+    admin_menu.geometry("300x300")
 
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
 l1.grid(row=1,column=2,columnspan=2)
