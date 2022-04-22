@@ -1,4 +1,6 @@
+from glob import glob
 from tkinter import *
+from tkinter import messagebox
 import sqlite3
 
 
@@ -6,9 +8,18 @@ window=Tk()
 window.geometry("1000x900")
 # Phan cua Khoa:
 # Phan dang nhap
+
 def user_win():
     user = Tk()
     user.geometry("300x300")
+    
+    Label(user,text="Username").place(x=20,y=20)
+    Label(user,text="Password").place(x=20,y=60)
+    entry1=Entry(user,bd=5)
+    entry1.place(x=140,y=20)
+    
+    entry2=Entry(user,bd=5)
+    entry2.place(x=140,y=60)
     # Dang nhap xong, xac nhan va bam nut ben duoi de chuyen sang phan menu cua User
     bt_user_signin = Button(user,text="Sign in",width=20,command=user_menu_win).pack(side=LEFT)
     # Nut dang ky, bam vao thi se chuyen sang tab khac de dien thong tin dang ky
@@ -22,11 +33,29 @@ def user_menu_win():
 def user_signup_win():
     user_signup = Tk()
     user_signup.geometry("300x300")
-# Thiet ke giao dien cho phan dang nhap Admin(Khoa de co dinh 1 tk thi tot, k thi cung ksao)   
+    
 def admin_win():
     admin = Tk()
+    def admin_login():
+        admin_username= entry1.get()
+        admin_password= entry2.get()
+        if (admin_username=="" and admin_password==''):
+            messagebox.showinfo("","Blank Not Allowed")
+        elif (admin_username=="KhoaDzvl" and admin_password=="admin"):
+            messagebox.showinfo("","Login success",command=admin_menu_win())
+        else:
+            messagebox.showinfo("","incorrect username and password")
+    
+    
+    Label(admin,text="Username").place(x=20,y=20)
+    Label(admin,text="Password").place(x=20,y=60)
+    entry1=Entry(admin,bd=5)
+    entry1.place(x=140,y=20)
+    
+    entry2=Entry(admin,bd=5)
+    entry2.place(x=140,y=60)
     admin.geometry("300x300")
-    bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_menu_win).pack()
+    bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_login).place(x=100,y=120)
 # Phan cua Nam:
 def admin_menu_win():
     admin_menu = Tk()
