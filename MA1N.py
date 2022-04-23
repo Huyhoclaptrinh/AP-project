@@ -4,6 +4,7 @@ import sqlite3
 
 
 window=Tk()
+window.title("Bookstore Management")
 window.geometry("1000x900")
 # Phan cua Khoa:
 # Phan dang nhap
@@ -11,6 +12,7 @@ window.geometry("1000x900")
 def user_win():
     user = Tk()
     user.geometry("300x300")
+    user.title("User")
     
     Label(user,text="Username").place(x=20,y=20)
     Label(user,text="Password").place(x=20,y=60)
@@ -28,29 +30,36 @@ def user_win():
 def user_menu_win():
     user_menu = Tk()
     user_menu.geometry("300x300")
+    user_menu.title("Menu")
+    
     bt_user_detail = Button(user_menu,text="User",width = 10, height=3,command=user_detail_win).place(x=20,y=0)
     bt_display_book = Button(user_menu,text="Display book",width = 10, height=3,command=display_book_win).place(x=20,y=50)
     bt_search = Button(user_menu,text="Search",width = 10, height=3,command=search_win).place(x=20,y=100)
     bt_my_cart = Button(user_menu,text="My cart",width = 10, height=3,command=my_cart_win).place(x=20,y=150)
 def user_detail_win():
     user_detail = Tk()
+    user_detail.title("User Detail")
     user_detail.geometry("300x300")
 
 def display_book_win():
     display_book = Tk()
+    display_book.title("Display Book")
     display_book.geometry("300x300")
 
 def search_win():
     search = Tk()
+    search.title("Search")
     search.geometry("300x300")
 
 def my_cart_win():
     my_cart = Tk()
+    my_cart.title("My Cart")
     my_cart.geometry("300x300")
     
 # Thiet ke giao dien cho phan dang ky
 def user_signup_win():
     user_signup = Tk()
+    user_signup.title("Sign up")
     user_signup.geometry("300x300")
     
     def getvals():
@@ -91,6 +100,7 @@ def user_signup_win():
     
 def admin_win():
     admin = Tk()
+    admin.title("Admin")
     def admin_login():
         admin_username= entry1.get()
         admin_password= entry2.get()
@@ -114,6 +124,7 @@ def admin_win():
 # Phan cua Nam:
 def admin_menu_win():
     admin_menu = Tk()
+    admin_menu.title("Menu")
     admin_menu.geometry("300x300")
     
     bt_books_list = Button(admin_menu,text="Books list",width=10, height=3,command=books_list_win).place(x=20,y=0)
@@ -121,6 +132,7 @@ def admin_menu_win():
     
 def books_list_win():
     books_list = Tk()
+    books_list.title("Books list")
     books_list.geometry("300x300")
     def addlist():
         listbox.insert(END, entry.get())
@@ -131,6 +143,7 @@ def books_list_win():
     # Day la phan giao dien de dien thong tin de them vao bang
     def add_win():
         add_win_menu = Tk()
+        add_win_menu.title("Add Book")
         add_win_menu.geometry("300x300")
         # Nut submit de add thong tin vao table
         bt_submit_add = Button(add_win_menu,width = 20, command=addlist).pack()
@@ -150,6 +163,7 @@ def books_list_win():
         
 def turnover_win():
     turnover = Tk()
+    turnover.title("Turnover")
     turnover.geometry("300x300")    
         
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
