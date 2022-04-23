@@ -15,7 +15,7 @@ def user_win():
     user.title("User")
     
     Label(user,text="Username").place(x=20,y=20)
-    Label(user,text="Password").place(x=20,y=60)
+    Label(user,text="Password",show='*').place(x=20,y=60)
     entry1=Entry(user,bd=5)
     entry1.place(x=140,y=20)
     
@@ -68,35 +68,40 @@ def user_signup_win():
     Label(user_signup,text="Register Form",font="ar 17 bold").place(x=4,y=1) 
     
     name = Label(user_signup, text ="Username")
+    entry = Label(user_signup,text ="Password")
     email = Label(user_signup, text ="Email")
     phone = Label(user_signup, text ="Phone")
     add = Label(user_signup, text ="Address")
     
     name.place(x=1, y=60)
-    email.place(x=2, y=90)
-    phone.place(x=3, y=120)
-    add.place(x=4, y=150)
+    entry.place(x=1,y=90)
+    email.place(x=1, y=120)
+    phone.place(x=1, y=150)
+    add.place(x=1, y=180)
     
     namevalue=StringVar
+    entryvalue=StringVar
     emailvalue=StringVar
     phonevalue=StringVar
     addvalue=StringVar
     checkvalue=IntVar
     
     nameentry = Entry(user_signup, textvariable=namevalue )
+    entryentry = Entry(user_signup, textvariable=entryvalue, show='*')
     emailentry = Entry(user_signup, textvariable=emailvalue )
     phoneentry = Entry(user_signup, textvariable=phonevalue )
     addentry = Entry(user_signup, textvariable=addvalue )
     
     nameentry.place(x=70, y=60)
-    emailentry.place(x=70, y=90)
-    phoneentry.place(x=70, y=120)
-    addentry.place(x=70, y=150)
+    entryentry.place(x=70,y=90)
+    emailentry.place(x=70, y=120)
+    phoneentry.place(x=70, y=150)
+    addentry.place(x=70, y=180)
     
     checkbtn = Checkbutton(user_signup, text="remember me?", variable= checkvalue)
-    checkbtn.place(x=70,y=180)
+    checkbtn.place(x=70,y=210)
     
-    Button(user_signup,text="Submit information", command=getvals).place(x=70,y=220)
+    Button(user_signup,text="Submit information", command=getvals).place(x=70,y=240)
     
 def admin_win():
     admin = Tk()
