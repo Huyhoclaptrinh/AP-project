@@ -8,25 +8,25 @@ window.title("Bookstore Management")
 window.geometry("1000x900")
 # Phan cua Khoa:
 # Phan dang nhap
-
+                                      # USER Window
 def user_win():
     user = Tk()
     user.geometry("300x300")
     user.title("User")
     
     Label(user,text="Username").place(x=20,y=20)
-    Label(user,text="Password",show='*').place(x=20,y=60)
+    Label(user,text="Password").place(x=20,y=60)
     entry1=Entry(user,bd=5)
     entry1.place(x=140,y=20)
     
-    entry2=Entry(user,bd=5)
+    entry2=Entry(user,bd=5,show='*')
     entry2.place(x=140,y=60)
     # Dang nhap xong, xac nhan va bam nut ben duoi de chuyen sang phan menu cua User
     bt_user_signin = Button(user,text="Sign in",width=20,command=user_menu_win).pack(side=LEFT)
     # Nut dang ky, bam vao thi se chuyen sang tab khac de dien thong tin dang ky
     # Khoa tim cach de luu thong tin dang ky va lien ket voi phan dang nhap de xac nhan tai khoan dang nhap
     bt_user_signup = Button(user,text="Sign up",width=20,command=user_signup_win).pack(side=RIGHT)
-
+                                           # User Menu
 def user_menu_win():
     user_menu = Tk()
     user_menu.geometry("300x300")
@@ -55,7 +55,7 @@ def my_cart_win():
     my_cart = Tk()
     my_cart.title("My Cart")
     my_cart.geometry("300x300")
-    
+                                 # User Sign Up
 # Thiet ke giao dien cho phan dang ky
 def user_signup_win():
     user_signup = Tk()
@@ -102,7 +102,7 @@ def user_signup_win():
     checkbtn.place(x=70,y=210)
     
     Button(user_signup,text="Submit information", command=getvals).place(x=70,y=240)
-    
+                                        # Admin Window
 def admin_win():
     admin = Tk()
     admin.title("Admin")
@@ -111,7 +111,7 @@ def admin_win():
         admin_password= entry2.get()
         if (admin_username=="" and admin_password==''):
             messagebox.showinfo("","Blank Not Allowed")
-        elif (admin_username=="KhoaDzvl" and admin_password=="admin"):
+        elif (admin_username=="Admin123" and admin_password=="admin2002"):
             messagebox.showinfo("","Login success",command=admin_menu_win())
         else:
             messagebox.showinfo("","incorrect username and password")
@@ -122,10 +122,11 @@ def admin_win():
     entry1=Entry(admin,bd=5)
     entry1.place(x=140,y=20)
     
-    entry2=Entry(admin,bd=5)
+    entry2=Entry(admin,bd=5,show='*')
     entry2.place(x=140,y=60)
     admin.geometry("300x300")
     bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_login).place(x=100,y=120)
+                                                # Admin Menu
 # Phan cua Nam:
 def admin_menu_win():
     admin_menu = Tk()
