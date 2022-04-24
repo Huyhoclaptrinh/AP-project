@@ -1,5 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter.ttk import Combobox
+import numpy as np 
+import matplotlib.pyplot as plt 
 import sqlite3
 import os
 
@@ -37,45 +40,44 @@ def admin_menu_win():
     admin_menu.geometry("300x300")
     
     bt_books_list = Button(admin_menu,text="Books list",width=10, height=3,command=books_list_win).place(x=20,y=0)
-    bt_turnover = Button(admin_menu,text="Turnover",width=10, height=3,command=turnover_win).place(x=20,y=50)
+    bt_turnover = Button(admin_menu,text="Turnover",width=10, height=3,command=plot_turnover).place(x=20,y=50)
                                     # BOOKS LIST WINDOW
 def books_list_win():
     books_list = Tk()
     books_list.title("Books list")
     books_list.geometry("300x300")
-    def addlist():
-        listbox.insert(END, entry.get())
-        entry.delete(0, END)
-
-    def removelist():
-        listbox.delete(listbox.curselection())
-    # Day la phan giao dien de dien thong tin de them vao bang
-    def add_win():
-        add_win_menu = Tk()
-        add_win_menu.title("Add Book")
-        add_win_menu.geometry("300x300")
-        # Nut submit de add thong tin vao table
-        bt_submit_add = Button(add_win_menu,width = 20, command=addlist).pack()
+    l1 = Label(books_list, text = "Select book name")
+    l1.pack()
     
-    listbox = Listbox(books_list)
+    combobox = Combobox(books_list,values = ["A","B","C","D","E","F","G","H"])
+    combobox.pack()
+    
+    l2 = Label(books_list, text = "Here are books's price")
+    l2.pack() 
+    
+    listbox = Listbox(books_list, selectmode = SINGLE)
+    listbox.insert(1,"A - 20$")
+    listbox.insert(1,"C - 25$")
+    listbox.insert(1,"D - 30$")
+    listbox.insert(1,"E - 35$")
+    listbox.insert(1,"F - 40$")
+    listbox.insert(1,"G - 45$")
+    listbox.insert(1,"H - 50$")
     listbox.pack()
-    
-    entry = Entry(books_list)
-    entry.pack()
-    
-    bt_add = Button(books_list, text="Add book",command=add_win)
-    bt_add.pack()
-    
-    bt_remove = Button(books_list, text="Remove book",command=removelist)
-    bt_remove.pack()
-        
+            
                                          # TURNOVER WINDOW
 def turnover_win():
     turnover = Tk()
     turnover.title("Turnover")
     turnover.geometry("300x300")    
-        
-
+    
+def plot_turnover():
+    labels = ["First quarter", "Second quarter", "Third quarter", "Fourth quarter"]
+    values = [50, 70, 90, 10]
+    plt.title("Turnover of Books store")
+    plt.pie(values, labels = labels)
+    plt.show()
+    
 
 
                                              # USER WINDOW
