@@ -120,16 +120,18 @@ def user_not_found():
 def user_register():
     print("working")
 
+    
     username_info = username.get()
     password_info = password.get()
-    #   email_info = mail.get()
-    #   address_info = address.get()
-
+    email_info = mail.get()
+    address_info = address.get()
+    
+    
     file = open(username_info, "w")
     file.write(username_info + "\n")
     file.write(password_info)
-    #  file.write(email_info)
-    #  file.write(address_info)
+    file.write(email_info)
+    file.write(address_info)
     file.close()
 
     Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).pack()
@@ -171,7 +173,7 @@ def user_register_win():
     username = StringVar()
     password = StringVar()
     mail = StringVar()
-    address = StringVar
+    address = StringVar()
 
     Label(screen1, text="Please enter details below").pack()
     Label(screen1, text="").pack()
@@ -239,9 +241,18 @@ def user_menu_win():
                                                # USER DETAIL WINDOW
 
 def user_detail_win():
-    user_detail = Tk()
+    user_detail = Toplevel(window)
     user_detail.title("User Detail")
     user_detail.geometry("300x300")
+    
+    name_user = Label(user_detail, text="Name: ").pack()
+    name_user_entry = Entry(user_detail, textvariable = username).pack()
+    
+    email_user = Label(user_detail, text="Email: ").pack()
+    email_user_entry = Entry(user_detail, textvariable=mail).pack()
+    
+    address_user = Label(user_detail, text="Address: ").pack()
+    address_user_entry = Entry(user_detail, textvariable = address).pack()
 
                                             # USER DISPLAY BOOK WINDOW
 
