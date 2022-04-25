@@ -208,20 +208,13 @@ def books_list_win():
     show()
     listBox.bind('<Double-Button-1>',GetValue)
                 
-                                         # TURNOVER WINDOW
-def turnover_win():
-    turnover = Tk()
-    turnover.title("Turnover")
-    turnover.geometry("300x300")    
-    
+                                         # TURNOVER PLOT WINDOW
 def plot_turnover():
     labels = ["First quarter", "Second quarter", "Third quarter", "Fourth quarter"]
     values = [50, 70, 90, 10]
     plt.title("Turnover of Books store")
     plt.pie(values, labels = labels)
     plt.show()
-    
-
 
                                              # USER WINDOW
 def user_win():
@@ -230,7 +223,6 @@ def user_win():
     user.title("User")
     bt_user_signin = Button(user, text="Sign in", width=20, command=user_login_win).pack(side=LEFT)
     bt_user_signup = Button(user, text="Sign up", width=20, command=user_register_win).pack(side=RIGHT)
-
 
 
 def login_sucess():
@@ -297,8 +289,6 @@ def user_login_verify():
         user_not_found()
 
                                                # REGISTER WINDOW
-
-
 def user_register_win():
     global screen1
     screen1 = Toplevel(window)
