@@ -54,7 +54,6 @@ def books_list_win():
        book_name_entry.delete(0, END)
        author_name_entry.delete(0, END)
        genre_entry.delete(0, END)
-       quantity_entry.delete(0, END)
        price_entry.delete(0, END)
        
        row_id = listBox.selection()[0]
@@ -64,22 +63,23 @@ def books_list_win():
        book_name_entry.insert(0,select['book_name'])
        author_name_entry.insert(0,select['author_name'])
        genre_entry.insert(0,select['genre'])
-       quantity_entry.insert(0,select['quantity'])
        price_entry.insert(0,select['price'])
     
     def Add():
+       add=Tk() 
+       add.title("Turnover")
+       add.geometry("300x300")
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
        author_name_get = author_name_entry.get()
        genre_get = genre_entry.get()
-       quantity_get = quantity_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "INSERT INTO  books (id,book_name,author_name,genre,quantity,price) VALUES (%s, %s, %s, %s,%s,%s)"
-          val = (id_get,book_name_get,author_name_get,genre_get,quantity_get,price_get)
+          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s, %s,%s,%s)"
+          val = (id_get,book_name_get,author_name_get,genre_get,price_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
           lastid = mycursor.lastrowid
@@ -88,7 +88,6 @@ def books_list_win():
           book_name_entry.delete(0, END)
           author_name_entry.delete(0, END)
           genre_entry.delete(0, END)
-          quantity_entry.delete(0, END)
           price_entry.delete(0, END)
           id_entry.focus_set()
        except Exception as e:
@@ -101,14 +100,13 @@ def books_list_win():
        book_name_get = book_name_entry.get()
        author_name_get = author_name_entry.get()
        genre_get = genre_entry.get()
-       quantity_get = quantity_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "Update  books set book_name= %s,author_name= %s,genre = %s,quantity= %s, price= %s where id= %s"
-          val = (book_name_get,author_name_get,genre_get,quantity_get,price_get,id_get)
+          sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
+          val = (book_name_get,author_name_get,genre_get,price_get,id_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
           lastid = mycursor.lastrowid
@@ -117,7 +115,6 @@ def books_list_win():
           book_name_entry.delete(0, END)
           author_name_entry.delete(0, END)
           genre_entry.delete(0, END)
-          quantity_entry.delete(0, END)
           price_entry.delete(0, END)
           id_entry.focus_set()
        except Exception as e:
@@ -128,7 +125,7 @@ def books_list_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "delete from books where id = %s"
@@ -141,7 +138,6 @@ def books_list_win():
           book_name_entry.delete(0, END)
           author_name_entry.delete(0, END)
           genre_entry.delete(0, END)
-          quantity_entry.delete(0, END)
           price_entry.delete(0, END)
           id_entry.focus_set()
        except Exception as e:
@@ -149,20 +145,19 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
           mycursor = mysqldb.cursor()
-          mycursor.execute("SELECT id,book_name,author_name,genre,quantity,price FROM books")
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
           print(records)
-          for i, (id1,book_name1,author_name1, genre1,quantity1,price1) in enumerate(records,start=1):
-             listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,quantity1,price1))
+          for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+             listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
              mysqldb.close()
     
     global id_entry
     global book_name_entry
     global author_name_entry
     global genre_entry
-    global quantity_entry
     global price_entry
     
     
@@ -172,8 +167,7 @@ def books_list_win():
     Label(books_list, text="Book Name").place(x=10, y=40)
     Label(books_list, text="Author Name").place(x=10, y=70)
     Label(books_list, text="Genre").place(x=10, y=100)
-    Label(books_list, text="Quantity").place(x=10, y=130)
-    Label(books_list, text="Price").place(x=10, y=160)
+    Label(books_list, text="Price").place(x=10, y=130)
     
     id_entry = Entry(books_list)
     id_entry.place(x=140, y=10)
@@ -187,17 +181,14 @@ def books_list_win():
     genre_entry = Entry(books_list)
     genre_entry.place(x=140, y=100)
     
-    quantity_entry = Entry(books_list)
-    quantity_entry.place(x=140, y=130)
-    
     price_entry = Entry(books_list)
-    price_entry.place(x=140, y=160)
+    price_entry.place(x=140, y=130)
     
     Button(books_list, text="Add",command = Add,height=3, width= 13).place(x=300, y=130)
     Button(books_list, text="Update",command = update,height=3, width= 13).place(x=400, y=130)
     Button(books_list, text="Delete",command = delete,height=3, width= 13).place(x=500, y=130)
     
-    cols = ('id', 'book_name', 'author_name','genre','quantity','price')
+    cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(books_list, columns=cols, show='headings' )
     
     for col in cols:
@@ -264,9 +255,9 @@ def user_register():
     
     file = open(username_info, "w")
     file.write(username_info + "\n")
-    file.write(password_info)
-    file.write(email_info)
-    file.write(address_info)
+    file.write(password_info + "\n")
+    file.write(email_info +"\n")
+    file.write(address_info + "\n")
     file.close()
 
     Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).pack()
@@ -394,7 +385,25 @@ def display_book_win():
     display_book.title("Display Book")
     display_book.geometry("300x300")
 
-                                               # SEARCH WINDOW
+    def show():
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+          mycursor = mysqldb.cursor()
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
+          records = mycursor.fetchall()
+          print(records)
+          for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+                listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+                mysqldb.close()
+
+    cols = ('id', 'book_name', 'author_name','genre','price')
+    listBox = ttk.Treeview(display_book, columns=cols, show='headings' )
+    
+    for col in cols:
+       listBox.heading(col, text=col)
+       listBox.grid(row=1, column=0, columnspan=2)
+       listBox.place(x=10, y=200)
+    
+    show()                                         # SEARCH WINDOW
 
 def search_win():
     search = Tk()
