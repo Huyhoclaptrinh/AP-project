@@ -1,3 +1,4 @@
+from cgi import test
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
@@ -417,12 +418,75 @@ def display_book_win():
        listBox.grid(row=1, column=0, columnspan=2)
        listBox.place(x=10, y=200)
     
-    show()                                         # SEARCH WINDOW
+    show()                                         
+    
+                                                # SEARCH WINDOW
 
 def search_win():
     search = Tk()
     search.title("Search")
     search.geometry("300x300")
+    drop = ttk.Combobox(search_win, value=["Search by...", "Book ID", "Book Name", "Author Name", "Genre"])
+    drop.current(0)
+    drop.grid(x=160, y=10)
+
+    def search_now():
+        id_get = id_entry.get()
+        book_name_get = book_name_entry.get()
+        author_name_get = author_name_entry.get()
+        genre_get = genre_entry.get()
+        
+        selected = drop.get()
+        sql = ""
+        if selected == ["Search by..."]:
+            test = Label(search, text="Tf u want to search?")
+            test.grid(x=140, y=70)
+        if selected == ["Book ID"]:
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'"
+        if selected == ["Book Name"]:
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + book_name_get + "'"
+        if selected == ["Author Name"]:
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + author_name_get + "'"
+        if selected == ["Genre"]:
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + genre_get + "'"
+
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+        mycursor = mysqldb.cursor()
+        records = mycursor.execute(sql)
+        records = mycursor.fetchall()
+
+        print(records)
+        for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+           listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+           mysqldb.close()
+    
+    #show cl
+    def show():
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+        mycursor = mysqldb.cursor()
+        id_get = id_entry.get()
+        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
+        records = mycursor.fetchall()
+        print(records)
+        for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+           listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+           mysqldb.close()
+
+
+    Label(search, text="Search").place(x=10, y=10)
+    Button(search, text="Search", command=search_now ,height = 1, width = 13).place(x=140, y=40)
+
+    search_box = Entry(search)
+    search_box.place(x=140, y=10)
+
+
+    cols = ('id', 'book_name', 'author_name','genre','price')
+    listBox = ttk.Treeview(search, columns=cols, show='headings' )
+
+    for col in cols:
+       listBox.heading(col, text=col)
+       listBox.grid(row=1, column=0, columnspan=2)
+       listBox.place(x=10, y=200)
 
                                                  # MY CART WINDOW
 
@@ -430,23 +494,7 @@ def my_cart_win():
     my_cart = Tk()
     my_cart.title("My Cart")
     my_cart.geometry("300x300")
-    def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
-          mycursor = mysqldb.cursor()
-          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
-          records = mycursor.fetchall()
-          print(records)
-          for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
-                listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
-                mysqldb.close()
-
-    cols = ('book_name', 'price')
-    listBox = ttk.Treeview(my_cart, columns=cols, show='headings' )
-    
-    for col in cols:
-       listBox.heading(col, text=col)
-       listBox.grid(row=1, column=0, columnspan=2)
-       listBox.place(x=10, y=200)
+ 
 
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
 l1.grid(row=1,column=2,columnspan=2)
