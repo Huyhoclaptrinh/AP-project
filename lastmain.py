@@ -20,7 +20,7 @@ def admin_win():
         admin_password= entry2.get()
         if (admin_username=="" and admin_password==''):
             messagebox.showinfo("","Blank Not Allowed")
-        elif (admin_username=="Admin123" and admin_password=="admin2002"):
+        elif (admin_username=="a" and admin_password=="1"):
             messagebox.showinfo("","Login success",command=admin_menu_win())
         else:
             messagebox.showinfo("","incorrect username and password")
@@ -42,7 +42,7 @@ def admin_menu_win():
     admin_menu.geometry("300x300")
     
     bt_books_list = Button(admin_menu,text="Books list",width=10, height=3,command=books_list_win).place(x=20,y=0)
-    bt_turnover = Button(admin_menu,text="Turnover",width=10, height=3,command=plot_turnover).place(x=20,y=50)
+    bt_revenue = Button(admin_menu,text="Revenue",width=10, height=3,command=revenue_win).place(x=20,y=50)
                                     # BOOKS LIST WINDOW
 def books_list_win():
     books_list = Tk()
@@ -156,7 +156,7 @@ def books_list_win():
     global book_name_entry
     global author_name_entry
     global genre_entry
-    global price_entry
+    global price_entry 
     
     
     tk.Label(books_list, text="Book List", fg="black", font=(None, 30)).place(x=300, y=5)
@@ -187,7 +187,7 @@ def books_list_win():
     Button(books_list, text="Delete",command = delete,height=3, width= 13).place(x=500, y=130)
     
     cols = ('id', 'book_name', 'author_name','genre','price')
-    listBox = ttk.Treeview(books_list, columns=cols, show='headings' )
+    listBox = ttk.Treeview(books_list, columns=cols, show='headings')
     
     for col in cols:
        listBox.heading(col, text=col)
@@ -196,14 +196,163 @@ def books_list_win():
     
     show()
     listBox.bind('<Double-Button-1>',GetValue)
-                
+
+  # REVENUE WINDOW              
+def revenue_win():
+    revenue = Tk()
+    revenue.title("Revenue")
+    revenue.geometry("300x300")
+    
+    def GetValue(event):
+       id_entry.delete(0, END)
+       book_name_entry.delete(0, END)
+       author_name_entry.delete(0, END)
+       genre_entry.delete(0, END)
+       price_entry.delete(0, END)
+       
+       row_id = listBox.selection()[0]
+       select = listBox.set(row_id)
+       
+       id_entry.insert(0,select['id'])
+       book_name_entry.insert(0,select['book_name'])
+       author_name_entry.insert(0,select['author_name'])
+       genre_entry.insert(0,select['genre'])
+       price_entry.insert(0,select['price'])
+    
+    def Add():
+       
+       id_get = id_entry.get()
+       book_name_get = book_name_entry.get()
+       author_name_get = author_name_entry.get()
+       genre_get = genre_entry.get()
+       price_get = price_entry.get()
+       
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mycursor=mysqldb.cursor()
+       try:
+          sql = "INSERT INTO  sakila (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
+          val = (id_get,book_name_get,author_name_get,genre_get,price_get)
+          mycursor.execute(sql, val)
+          mysqldb.commit()
+          lastid = mycursor.lastrowid
+          messagebox.showinfo("information", "Book inserted successfully")
+          id_entry.delete(0, END)
+          book_name_entry.delete(0, END)
+          author_name_entry.delete(0, END)
+          genre_entry.delete(0, END)
+          price_entry.delete(0, END)
+          id_entry.focus_set()
+       except Exception as e:
+          print(e)
+          mysqldb.rollback()
+          mysqldb.close()
+    
+    def update():
+       id_get = id_entry.get()
+       book_name_get = book_name_entry.get()
+       author_name_get = author_name_entry.get()
+       genre_get = genre_entry.get()
+       price_get = price_entry.get()
+       
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mycursor=mysqldb.cursor()
+       try:
+          sql = "Update  sakila set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
+          val = (book_name_get,author_name_get,genre_get,price_get,id_get)
+          mycursor.execute(sql, val)
+          mysqldb.commit()
+          lastid = mycursor.lastrowid
+          messagebox.showinfo("information", "Updated successfully")
+          id_entry.delete(0, END)
+          book_name_entry.delete(0, END)
+          author_name_entry.delete(0, END)
+          genre_entry.delete(0, END)
+          price_entry.delete(0, END)
+          id_entry.focus_set()
+       except Exception as e:
+    
+          print(e)
+          mysqldb.rollback()
+          mysqldb.close()
+    
+    def delete():
+       id_get = id_entry.get()
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mycursor=mysqldb.cursor()
+       try:
+          sql = "delete from sakila where id = %s"
+          val = (id_get,)
+          mycursor.execute(sql, val)
+          mysqldb.commit()
+          lastid = mycursor.lastrowid
+          messagebox.showinfo("information", "Delete successfully...")
+          id_entry.delete(0, END)
+          book_name_entry.delete(0, END)
+          author_name_entry.delete(0, END)
+          genre_entry.delete(0, END)
+          price_entry.delete(0, END)
+          id_entry.focus_set()
+       except Exception as e:
+          print(e)
+          mysqldb.rollback()
+          mysqldb.close()
+    def show():
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+          mycursor = mysqldb.cursor()
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM sakila")
+          records = mycursor.fetchall()
+          print(records)
+          for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+             listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+             mysqldb.close()
+    
+    global id_entry
+    global book_name_entry
+    global author_name_entry
+    global genre_entry
+    global price_entry
+    
+    
+    tk.Label(revenue, text="Revenue", fg="black", font=(None, 30)).place(x=300, y=5)
+    
+    tk.Label(revenue, text="ID").place(x=10, y=10)
+    Label(revenue, text="Book Name").place(x=10, y=40)
+    Label(revenue, text="Author Name").place(x=10, y=70)
+    Label(revenue, text="Genre").place(x=10, y=100)
+    Label(revenue, text="Price").place(x=10, y=130)
+    
+    id_entry = Entry(revenue)
+    id_entry.place(x=140, y=10)
+    
+    book_name_entry = Entry(revenue)
+    book_name_entry.place(x=140, y=40)
+    
+    author_name_entry = Entry(revenue)
+    author_name_entry.place(x=140, y=70)
+    
+    genre_entry = Entry(revenue)
+    genre_entry.place(x=140, y=100)
+    
+    price_entry = Entry(revenue)
+    price_entry.place(x=140, y=130)
+    
+    Button(revenue, text="Add",command = Add,height=3, width= 13).place(x=300, y=130)
+    Button(revenue, text="Update",command = update,height=3, width= 13).place(x=400, y=130)
+    Button(revenue, text="Delete",command = delete,height=3, width= 13).place(x=500, y=130)
+    
+    cols = ('id', 'book_name', 'author_name','genre','price')
+    listBox = ttk.Treeview(revenue, columns=cols, show='headings')
+    
+    for col in cols:
+       listBox.heading(col, text=col)
+       listBox.grid(row=1, column=0, columnspan=2)
+       listBox.place(x=10, y=200)
+    
+    show()
+    listBox.bind('<Double-Button-1>',GetValue)
+
                                          # TURNOVER PLOT WINDOW
-def plot_turnover():
-    labels = ["First quarter", "Second quarter", "Third quarter", "Fourth quarter"]
-    values = [50, 70, 90, 10]
-    plt.title("Turnover of Books store")
-    plt.pie(values, labels = labels)
-    plt.show()
+
 
                                              # USER WINDOW
 def user_win():
