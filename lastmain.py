@@ -411,8 +411,36 @@ def search_win():
     search.title("Search")
     search.geometry("300x300")
 
-
-
+    def show():
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+        mycursor = mysqldb.cursor()
+        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
+        records = mycursor.fetchall()
+        print(records)
+        for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+           listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+           mysqldb.close()
+    
+ 
+    
+    Label(search, text="Student ID").place(x=10, y=10)
+    Button(search, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
+    #Label(root, text="Course").place(x=10, y=80)
+    #Label(root, text="Fee").place(x=10, y=120)
+    
+    id_entry = Entry(search)
+    id_entry.place(x=140, y=10)
+    
+    
+    cols = ('id', 'book_name', 'author_name','genre','price')
+    listBox = ttk.Treeview(search, columns=cols, show='headings' )
+    
+    for col in cols:
+       listBox.heading(col, text=col)
+       listBox.grid(row=1, column=0, columnspan=2)
+       listBox.place(x=10, y=200)
+    
+    
     
 
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
