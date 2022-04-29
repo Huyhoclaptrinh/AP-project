@@ -75,7 +75,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s, %s,%s,%s)"
@@ -102,7 +102,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
@@ -125,7 +125,7 @@ def books_list_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "delete from books where id = %s"
@@ -145,7 +145,7 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
@@ -385,7 +385,7 @@ def display_book_win():
     display_book.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910",database="bookstore")
         mycursor = mysqldb.cursor()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
         records = mycursor.fetchall()
@@ -412,9 +412,10 @@ def search_win():
     search.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
-        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
+        id_get = id_entry.get()
+        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
         records = mycursor.fetchall()
         print(records)
         for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
