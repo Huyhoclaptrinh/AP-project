@@ -66,9 +66,7 @@ def books_list_win():
        price_entry.insert(0,select['price'])
     
     def Add():
-       add=Tk() 
-       add.title("Turnover")
-       add.geometry("300x300")
+       
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
        author_name_get = author_name_entry.get()
@@ -78,7 +76,7 @@ def books_list_win():
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s, %s,%s,%s)"
+          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
