@@ -460,7 +460,7 @@ def search_win():
            listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
            mysqldb.close()
     
-    #show cl
+    #show cl d dung
     def show():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
