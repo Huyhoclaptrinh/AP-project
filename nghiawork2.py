@@ -76,10 +76,10 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s, %s,%s,%s)"
+          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s, %s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -103,7 +103,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
@@ -126,7 +126,7 @@ def books_list_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "delete from books where id = %s"
@@ -146,7 +146,7 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
@@ -392,16 +392,14 @@ def display_book_win():
         author_name_get = author_name_entry.get()
         genre_get = genre_entry.get()
         price_get = price_entry.get()
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678", database="bookstore")
         mycursor = mysqldb.cursor()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
         myresult = mycursor.fetchall()
     id_entry = Entry(display_book)
     id_entry.place(x=140, y=10)
-    Button(display_book, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
-    
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
@@ -409,7 +407,7 @@ def display_book_win():
           for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
                 listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
                 mysqldb.close()
-
+    Button(display_book, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
     cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(display_book, columns=cols, show='headings' )
     
@@ -426,31 +424,33 @@ def search_win():
     search = Tk()
     search.title("Search")
     search.geometry("300x300")
-    drop = ttk.Combobox(search_win, value=["Search by...", "Book ID", "Book Name", "Author Name", "Genre"])
+    drop = ttk.Combobox(search, value=["Search by...", "Book ID", "Book Name", "Author Name", "Genre"])
     drop.current(0)
-    drop.grid(x=160, y=10)
+    drop.place(x=300, y=10)
 
     def search_now():
+        global myresult
         id_get = id_entry.get()
         book_name_get = book_name_entry.get()
         author_name_get = author_name_entry.get()
         genre_get = genre_entry.get()
+        price_get = price_entry.get()
         
         selected = drop.get()
         sql = ""
         if selected == ["Search by..."]:
             test = Label(search, text="Tf u want to search?")
-            test.grid(x=140, y=70)
+            test.place(x=300, y=70)
         if selected == ["Book ID"]:
             sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'"
         if selected == ["Book Name"]:
-            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + book_name_get + "'"
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where book_name = '" + book_name_get + "'"
         if selected == ["Author Name"]:
-            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + author_name_get + "'"
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where author_name = '" + author_name_get + "'"
         if selected == ["Genre"]:
-            sql = "SELECT id,book_name,author_name,genre,price FROM books where id = '" + genre_get + "'"
+            sql = "SELECT id,book_name,author_name,genre,price FROM books where genre = '" + genre_get + "'"
 
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678", database="bookstore")
         mycursor = mysqldb.cursor()
         records = mycursor.execute(sql)
         records = mycursor.fetchall()
@@ -462,22 +462,21 @@ def search_win():
     
     #show cl d dung
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
-        mycursor = mysqldb.cursor()
-        id_get = id_entry.get()
-        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
-        records = mycursor.fetchall()
-        print(records)
-        for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
-           listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
-           mysqldb.close()
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678", database="bookstore")
+          mycursor = mysqldb.cursor()
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
+          records = mycursor.fetchall()
+          print(records)
+          for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
+             listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
+             mysqldb.close()
 
 
     Label(search, text="Search").place(x=10, y=10)
     Button(search, text="Search", command=search_now ,height = 1, width = 13).place(x=140, y=40)
 
-    search_box = Entry(search)
-    search_box.place(x=140, y=10)
+    sql = Entry(search)
+    sql.place(x=140, y=10)
 
 
     cols = ('id', 'book_name', 'author_name','genre','price')
@@ -487,6 +486,8 @@ def search_win():
        listBox.heading(col, text=col)
        listBox.grid(row=1, column=0, columnspan=2)
        listBox.place(x=10, y=200)
+    
+    #show()
 
                                                  # MY CART WINDOW
 
