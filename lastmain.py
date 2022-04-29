@@ -1,3 +1,4 @@
+from ast import While
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
@@ -13,26 +14,31 @@ window.geometry("1000x800")
 
                                       # ADMIN WINDOW
 def admin_win():
-    admin = Tk()
-    admin.title("Admin")
-    def admin_login():
-        admin_username= entry1.get()
-        admin_password= entry2.get()
-        if (admin_username=="" and admin_password==''):
-            messagebox.showinfo("","Blank Not Allowed")
-        elif (admin_username=="a" and admin_password=="1"):
-            messagebox.showinfo("","Login success",command=admin_menu_win())
-        else:
-            messagebox.showinfo("","incorrect username and password")
-    Label(admin,text="Username").place(x=20,y=20)
-    Label(admin,text="Password").place(x=20,y=60)
-    entry1=Entry(admin,bd=5)
-    entry1.place(x=140,y=20)
-    
-    entry2=Entry(admin,bd=5,show='*')
-    entry2.place(x=140,y=60)
-    admin.geometry("300x300")
-    bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_login).place(x=100,y=120)
+   admin = Tk()
+   admin.title("Admin")
+   
+   
+   def admin_login():
+      admin_username= entry1.get()
+      admin_password= entry2.get()
+      if (admin_username=="" and admin_password==''):
+          messagebox.showinfo("","Blank Not Allowed")
+      elif (admin_username=="a" and admin_password=="1"):
+          messagebox.showinfo("","Login success",command=admin_menu_win())
+          admin.destroy()
+          window.destroy()
+      else:
+          messagebox.showinfo("","incorrect username and password")
+
+   Label(admin,text="Username").place(x=20,y=20)
+   Label(admin,text="Password").place(x=20,y=60)
+   entry1=Entry(admin,bd=5)
+   entry1.place(x=140,y=20)
+   
+   entry2=Entry(admin,bd=5,show='*')
+   entry2.place(x=140,y=60)
+   admin.geometry("300x300")
+   bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_login).place(x=100,y=120)
 
                                      # ADMIN MENU WINDOW
 # # Phan cua Nam:
@@ -47,7 +53,7 @@ def admin_menu_win():
 def books_list_win():
     books_list = Tk()
     books_list.title("Books list")
-    books_list.geometry("300x300")
+    books_list.state('zoomed')
     
     def GetValue(event):
        id_entry.delete(0, END)
@@ -73,7 +79,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
@@ -100,7 +106,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
@@ -123,7 +129,7 @@ def books_list_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "delete from books where id = %s"
@@ -143,7 +149,7 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
@@ -201,7 +207,7 @@ def books_list_win():
 def revenue_win():
     revenue = Tk()
     revenue.title("Revenue")
-    revenue.geometry("300x300")
+    revenue.state('zoomed')
     
     def GetValue(event):
        id_entry.delete(0, END)
@@ -227,10 +233,10 @@ def revenue_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
        mycursor=mysqldb.cursor()
        try:
-          sql = "INSERT INTO  sakila (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
+          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -254,10 +260,10 @@ def revenue_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
        mycursor=mysqldb.cursor()
        try:
-          sql = "Update  sakila set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
+          sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
           val = (book_name_get,author_name_get,genre_get,price_get,id_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -277,10 +283,10 @@ def revenue_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
        mycursor=mysqldb.cursor()
        try:
-          sql = "delete from sakila where id = %s"
+          sql = "delete from books where id = %s"
           val = (id_get,)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -297,9 +303,9 @@ def revenue_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="sakila")
           mycursor = mysqldb.cursor()
-          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM sakila")
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
           print(records)
           for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
@@ -503,8 +509,8 @@ def user_menu_win():
     user_menu.title("Menu")
 
     bt_user_detail = Button(user_menu, text="User", width=10, height=3, command=user_detail_win).place(x=20, y=0)
-    bt_display_book = Button(user_menu, text="Display book", width=10, height=3, command=display_book_win).place(x=20,
-                                                                                                                 y=50)
+    bt_display_book = Button(user_menu, text="Display book", width=10, height=3, command=display_book_win).place(x=20,y = 50)
+                                                                                                                      
     bt_search = Button(user_menu, text="Search", width=10, height=3, command=search_win).place(x=20, y=100)
 
 
@@ -532,7 +538,7 @@ def display_book_win():
     display_book.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910",database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@",database="bookstore")
         mycursor = mysqldb.cursor()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
         records = mycursor.fetchall()
@@ -559,7 +565,7 @@ def search_win():
     search.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
         mycursor = mysqldb.cursor()
         id_get = id_entry.get()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
@@ -592,12 +598,10 @@ def search_win():
     
 
 l1=Label(window,text="BOOKSTORE MANAGEMENT",font="times 20")
-l1.grid(row=1,column=2,columnspan=2)
+l1.place(x=300, y = 250)
 
 bt_admin=Button(window,text="ADMIN",width=20,command=admin_win)
-bt_admin.grid(row=3,column=2)
-
+bt_admin.place(x = 200, y =500)
 bt_user=Button(window,text="USER",width=20,command=user_win)
-bt_user.grid(row=3,column=3)
-
+bt_user.place(x=610, y =500)
 window.mainloop() 
