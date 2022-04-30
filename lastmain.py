@@ -79,7 +79,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
@@ -106,7 +106,7 @@ def books_list_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
@@ -129,7 +129,7 @@ def books_list_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="bookstore")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
           sql = "delete from books where id = %s"
@@ -149,7 +149,7 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
           records = mycursor.fetchall()
@@ -203,7 +203,7 @@ def books_list_win():
     show()
     listBox.bind('<Double-Button-1>',GetValue)
 
-  # REVENUE WINDOW              
+                                     # REVENUE WINDOW              
 def revenue_win():
     revenue = Tk()
     revenue.title("Revenue")
@@ -233,10 +233,10 @@ def revenue_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
+          sql = "INSERT INTO  sakila (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -260,10 +260,10 @@ def revenue_win():
        genre_get = genre_entry.get()
        price_get = price_entry.get()
        
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
+          sql = "Update  sakila set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
           val = (book_name_get,author_name_get,genre_get,price_get,id_get)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -283,10 +283,10 @@ def revenue_win():
     
     def delete():
        id_get = id_entry.get()
-       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="dangtqwerty[25]@",database="sakila")
+       mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
        try:
-          sql = "delete from books where id = %s"
+          sql = "delete from sakila where id = %s"
           val = (id_get,)
           mycursor.execute(sql, val)
           mysqldb.commit()
@@ -303,9 +303,9 @@ def revenue_win():
           mysqldb.rollback()
           mysqldb.close()
     def show():
-          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="sakila")
+          mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
-          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
+          mycursor.execute("SELECT id,book_name,author_name,genre,price FROM sakila")
           records = mycursor.fetchall()
           print(records)
           for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
@@ -356,9 +356,6 @@ def revenue_win():
     
     show()
     listBox.bind('<Double-Button-1>',GetValue)
-
-                                         # TURNOVER PLOT WINDOW
-
 
                                              # USER WINDOW
 def user_win():
@@ -538,7 +535,7 @@ def display_book_win():
     display_book.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@",database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910",database="bookstore")
         mycursor = mysqldb.cursor()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
         records = mycursor.fetchall()
@@ -565,7 +562,7 @@ def search_win():
     search.geometry("300x300")
 
     def show():
-        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="dangtqwerty[25]@", database="bookstore")
+        mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
         id_get = id_entry.get()
         mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
