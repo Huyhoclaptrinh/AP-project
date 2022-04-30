@@ -1,10 +1,12 @@
+from ast import While
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
-import os
+import numpy as np 
+import matplotlib.pyplot as plt 
 import sqlite3
+import os
 from tkinter import *
-
                                              # USER WINDOW
 def user_win():
     user = Tk()
@@ -16,7 +18,7 @@ def user_win():
 
 def login_sucess():
     global screen3
-    screen3 = Tk()
+    screen3 = Toplevel()
     screen3.title("Success")
     screen3.geometry("150x100")
     Label(screen3, text="Login Sucess").pack()
@@ -25,7 +27,7 @@ def login_sucess():
 
 def password_not_recognised():
     global screen4
-    screen4 = Tk()
+    screen4 = Toplevel()
     screen4.title("Success")
     screen4.geometry("150x100")
     Label(screen4, text="Password Error").pack()
@@ -34,7 +36,7 @@ def password_not_recognised():
 
 def user_not_found():
     global screen5
-    screen5 = Tk()
+    screen5 = Toplevel()
     screen5.title("Success")
     screen5.geometry("150x100")
     Label(screen5, text="User Not Found").pack()
@@ -80,7 +82,7 @@ def user_login_verify():
                                                # REGISTER WINDOW
 def user_register_win():
     global screen1
-    screen1 = Tk()
+    screen1 = Toplevel()
     screen1.title("Register")
     screen1.geometry("800x500")
 
@@ -122,7 +124,7 @@ def user_register_win():
 
 def user_login_win():
     global screen2
-    screen2 = Tk()
+    screen2 = Toplevel()
     screen2.title("Login")
     screen2.geometry("300x250")
     Label(screen2, text="Please enter details below to login").pack()
@@ -154,15 +156,15 @@ def user_menu_win():
     user_menu.title("Menu")
 
     bt_user_detail = Button(user_menu, text="User", width=10, height=3, command=user_detail_win).place(x=20, y=0)
-    bt_display_book = Button(user_menu, text="Display book", width=10, height=3, command=display_book_win).place(x=20,
-                                                                                                                 y=50)
+    bt_display_book = Button(user_menu, text="Display book", width=10, height=3, command=display_book_win).place(x=20,y = 50)
+                                                                                                                      
     bt_search = Button(user_menu, text="Search", width=10, height=3, command=search_win).place(x=20, y=100)
 
 
                                                # USER DETAIL WINDOW
 
 def user_detail_win():
-    user_detail = Tk()
+    user_detail = Toplevel()
     user_detail.title("User Detail")
     user_detail.geometry("300x300")
     
