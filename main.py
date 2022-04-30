@@ -1,7 +1,6 @@
 from tkinter import *
-import user
-import admin
-from user import *
+import package
+from package import admin,user
 
 window = Tk()
 window.geometry("1000x800")
