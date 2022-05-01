@@ -213,8 +213,8 @@ def search_win():
     def show():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
-        id_get = id_entry.get()
-        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where id = '" + id_get + "'")
+        book_name_get = book_name_entry.get()
+        mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books where book_name = '" + book_name_get + "'")
         records = mycursor.fetchall()
         print(records)
         for i, (id1,book_name1,author_name1, genre1,price1) in enumerate(records,start=1):
@@ -223,11 +223,11 @@ def search_win():
     
  
     
-    Label(search, text="Student ID").place(x=10, y=10)
+    Label(search, text="Book's name:").place(x=10, y=10)
     Button(search, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
     
-    id_entry = Entry(search)
-    id_entry.place(x=140, y=10)
+    book_name_entry = Entry(search)
+    book_name_entry.place(x=140, y=10)
     
     # Create a table
     cols = ('id', 'book_name', 'author_name','genre','price')
