@@ -1,13 +1,11 @@
-from ast import While
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
-import numpy as np 
-import matplotlib.pyplot as plt 
 import sqlite3
 import os
 from tkinter import *
                                              # USER WINDOW
+
 def user_win():
     user = Tk()
     user.geometry("300x300")
@@ -15,38 +13,36 @@ def user_win():
     bt_user_signin = Button(user, text="Sign in", width=20, command=user_login_win).pack(side=LEFT)
     bt_user_signup = Button(user, text="Sign up", width=20, command=user_register_win).pack(side=RIGHT)
 
-
+# When we login the right account, a tab will display with the word "Login Success".
 def login_sucess():
     global screen3
     screen3 = Toplevel()
     screen3.title("Success")
     screen3.geometry("150x100")
-    Label(screen3, text="Login Sucess").pack()
+    Label(screen3, text="Login Success").pack()
     Button(screen3, text="OK", command=user_menu_win).pack()
 
-
+# When we write the wrong password, a tab will display with the word "Password Error".
 def password_not_recognised():
     global screen4
     screen4 = Toplevel()
-    screen4.title("Success")
+    screen4.title("Error")
     screen4.geometry("150x100")
     Label(screen4, text="Password Error").pack()
     Button(screen4, text="OK").pack()
 
-
+# When we write the wrong username, a tab will display with the word "User Not Found".
 def user_not_found():
     global screen5
     screen5 = Toplevel()
-    screen5.title("Success")
+    screen5.title("Error")
     screen5.geometry("150x100")
     Label(screen5, text="User Not Found").pack()
     Button(screen5, text="OK").pack()
 
-
+# This def helps for getting the information that you register and put all of them into the file for saving
 def user_register():
     print("working")
-
-    
     username_info = username.get()
     password_info = password.get()
     email_info = mail.get()
@@ -62,7 +58,7 @@ def user_register():
 
     Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).pack()
 
-
+# Check for user login 
 def user_login_verify():
     username1 = username_verify.get()
     password1 = password_verify.get()
@@ -183,7 +179,8 @@ def display_book_win():
     display_book = Tk()
     display_book.title("Display Book")
     display_book.geometry("300x300")
-
+    
+    # This def helps for showing the database from mysql that we selected
     def show():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910",database="bookstore")
         mycursor = mysqldb.cursor()
@@ -194,6 +191,7 @@ def display_book_win():
               listBox.insert("", "end", values=(id1,book_name1,author_name1, genre1,price1))
               mysqldb.close()
     
+    # Create a table
     cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(display_book, columns=cols, show='headings' )
     
@@ -211,6 +209,7 @@ def search_win():
     search.title("Search")
     search.geometry("300x300")
 
+    # This def helps for showing the database from mysql that we selected
     def show():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
@@ -226,13 +225,11 @@ def search_win():
     
     Label(search, text="Student ID").place(x=10, y=10)
     Button(search, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
-    #Label(root, text="Course").place(x=10, y=80)
-    #Label(root, text="Fee").place(x=10, y=120)
     
     id_entry = Entry(search)
     id_entry.place(x=140, y=10)
     
-    
+    # Create a table
     cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(search, columns=cols, show='headings' )
     

@@ -1,7 +1,8 @@
 from tkinter import *
 import package
-from package import admin,user
-
+from package import admin
+from package import user
+# This is main window for bookstore management
 window = Tk()
 window.geometry("1000x800")
 

@@ -9,7 +9,7 @@ def admin_win():
    admin = Tk()
    admin.title("Admin")
    
-   
+   # This def helps for admin to login correctly
    def admin_login():
       admin_username= entry1.get()
       admin_password= entry2.get()
@@ -18,7 +18,6 @@ def admin_win():
       elif (admin_username=="a" and admin_password=="1"):
           messagebox.showinfo("","Login success",command=admin_menu_win())
           admin.destroy()
-          window.destroy()
       else:
           messagebox.showinfo("","incorrect username and password")
 
@@ -33,7 +32,6 @@ def admin_win():
    bt_admin_signin = Button(admin,text="Sign in",width=20,command=admin_login).place(x=100,y=120)
 
                                      # ADMIN MENU WINDOW
-# # Phan cua Nam:
 def admin_menu_win():
     admin_menu = Tk()
     admin_menu.title("Menu")
@@ -46,7 +44,7 @@ def books_list_win():
     books_list = Tk()
     books_list.title("Books list")
     books_list.state('zoomed')
-    
+    # This def is used to get the value of the table from the database
     def GetValue(event):
        id_entry.delete(0, END)
        book_name_entry.delete(0, END)
@@ -62,7 +60,7 @@ def books_list_win():
        author_name_entry.insert(0,select['author_name'])
        genre_entry.insert(0,select['genre'])
        price_entry.insert(0,select['price'])
-    
+    # Def for adding the data to the table and also database in mysql
     def Add():
        
        id_get = id_entry.get()
@@ -73,6 +71,7 @@ def books_list_win():
        
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "INSERT INTO  books (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
@@ -91,6 +90,7 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     
+    # Def for updating the data to the table and also database in mysql
     def update():
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
@@ -100,6 +100,7 @@ def books_list_win():
        
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "Update  books set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
           val = (book_name_get,author_name_get,genre_get,price_get,id_get)
@@ -119,10 +120,12 @@ def books_list_win():
           mysqldb.rollback()
           mysqldb.close()
     
+    # Def for deleting the data to the table and also database in mysql
     def delete():
        id_get = id_entry.get()
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "delete from books where id = %s"
           val = (id_get,)
@@ -140,7 +143,10 @@ def books_list_win():
           print(e)
           mysqldb.rollback()
           mysqldb.close()
+          
+    # Def for showing the data from the database in mysql to the table
     def show():
+         # Connecting mysql to this code and excute the variable and the command from mysql
           mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM books")
@@ -156,7 +162,7 @@ def books_list_win():
     global genre_entry
     global price_entry 
     
-    
+    # Create labels
     tk.Label(books_list, text="Book List", fg="black", font=(None, 30)).place(x=300, y=5)
     
     tk.Label(books_list, text="ID").place(x=10, y=10)
@@ -165,6 +171,7 @@ def books_list_win():
     Label(books_list, text="Genre").place(x=10, y=100)
     Label(books_list, text="Price").place(x=10, y=130)
     
+    # Create entries
     id_entry = Entry(books_list)
     id_entry.place(x=140, y=10)
     
@@ -184,6 +191,7 @@ def books_list_win():
     Button(books_list, text="Update",command = update,height=3, width= 13).place(x=400, y=130)
     Button(books_list, text="Delete",command = delete,height=3, width= 13).place(x=500, y=130)
     
+    # Create a table
     cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(books_list, columns=cols, show='headings')
     
@@ -195,12 +203,12 @@ def books_list_win():
     show()
     listBox.bind('<Double-Button-1>',GetValue)
 
-                                     # REVENUE WINDOW              
+                                     # REVENUE WINDOW(Display all the books which are sold out and the summary of prices)              
 def revenue_win():
     revenue = Tk()
     revenue.title("Revenue")
     revenue.state('zoomed')
-    
+    # This def is used to get the value of the table from the database
     def GetValue(event):
        id_entry.delete(0, END)
        book_name_entry.delete(0, END)
@@ -216,7 +224,7 @@ def revenue_win():
        author_name_entry.insert(0,select['author_name'])
        genre_entry.insert(0,select['genre'])
        price_entry.insert(0,select['price'])
-    
+    # Def for adding the data to the table and also database in mysql
     def Add():
        
        id_get = id_entry.get()
@@ -227,6 +235,7 @@ def revenue_win():
        
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "INSERT INTO  sakila (id,book_name,author_name,genre,price) VALUES (%s, %s, %s,%s,%s)"
           val = (id_get,book_name_get,author_name_get,genre_get,price_get)
@@ -244,7 +253,7 @@ def revenue_win():
           print(e)
           mysqldb.rollback()
           mysqldb.close()
-    
+    # Def for updating the data to the table and also database in mysql
     def update():
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
@@ -254,6 +263,7 @@ def revenue_win():
        
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "Update  sakila set book_name= %s,author_name= %s,genre = %s, price= %s where id= %s"
           val = (book_name_get,author_name_get,genre_get,price_get,id_get)
@@ -272,11 +282,12 @@ def revenue_win():
           print(e)
           mysqldb.rollback()
           mysqldb.close()
-    
+    # Def for deleting the data to the table and also database in mysql
     def delete():
        id_get = id_entry.get()
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
+       # Connecting mysql to this code and excute the variable and the command from mysql
        try:
           sql = "delete from sakila where id = %s"
           val = (id_get,)
@@ -294,7 +305,24 @@ def revenue_win():
           print(e)
           mysqldb.rollback()
           mysqldb.close()
+          
+    # Def for calculating the sum of the data to the table and also database in mysql
+    def sum():
+        db = mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
+          
+        # Create cursor object
+        cursor = db.cursor()
+          
+        # Get the sum of rows of a column
+        cursor.execute("SELECT SUM(price) FROM sakila")
+          
+        # Fetch sum and display it
+        global result
+        result = cursor.fetchall()[0][0]
+        messagebox.showinfo("Total", result)
+        # Def for showing the data from the database in mysql to the table
     def show():
+         # Connecting mysql to this code and excute the variable and the command from mysql
           mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
           mycursor.execute("SELECT id,book_name,author_name,genre,price FROM sakila")
@@ -310,7 +338,7 @@ def revenue_win():
     global genre_entry
     global price_entry
     
-    
+    # Create labels
     tk.Label(revenue, text="Revenue", fg="black", font=(None, 30)).place(x=300, y=5)
     
     tk.Label(revenue, text="ID").place(x=10, y=10)
@@ -319,6 +347,7 @@ def revenue_win():
     Label(revenue, text="Genre").place(x=10, y=100)
     Label(revenue, text="Price").place(x=10, y=130)
     
+    # Create entries
     id_entry = Entry(revenue)
     id_entry.place(x=140, y=10)
     
@@ -335,9 +364,11 @@ def revenue_win():
     price_entry.place(x=140, y=130)
     
     Button(revenue, text="Add",command = Add,height=3, width= 13).place(x=300, y=130)
-    Button(revenue, text="Update",command = update,height=3, width= 13).place(x=400, y=130)
-    Button(revenue, text="Delete",command = delete,height=3, width= 13).place(x=500, y=130)
-    
+    Button(revenue, text="Update",command = update,height=3, width= 13).place(x=410, y=130)
+    Button(revenue, text="Delete",command = delete,height=3, width= 13).place(x=520, y=130)
+    Button(revenue, text="Sum",command = sum,height=3, width= 13).place(x=630, y=130)
+
+    # Create a table
     cols = ('id', 'book_name', 'author_name','genre','price')
     listBox = ttk.Treeview(revenue, columns=cols, show='headings')
     
