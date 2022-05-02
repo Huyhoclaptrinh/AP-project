@@ -210,7 +210,7 @@ def search_win():
     search.geometry("300x300")
 
     # This def helps for showing the database from mysql that we selected
-    def show():
+    def show1():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
         book_name_get = book_name_entry.get()
@@ -224,7 +224,7 @@ def search_win():
  
     
     Label(search, text="Book's name:").place(x=10, y=10)
-    Button(search, text="Search", command=show ,height = 1, width = 13).place(x=140, y=40)
+    Button(search, text="Search", command=show1 ,height = 1, width = 13).place(x=140, y=40)
     
     book_name_entry = Entry(search)
     book_name_entry.place(x=140, y=10)
