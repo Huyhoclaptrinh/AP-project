@@ -25,7 +25,7 @@ def login_success():
     messagebox.showinfo("","Log in success!",command=user_menu_win())
     user.destroy()
 # When we write the wrong password, a tab will display with the word "Password Error".
-def password_not_recognized():
+def password_not_recognised():
     global screen4
     screen4 = Toplevel()
     screen4.title("Error")
@@ -74,7 +74,7 @@ def user_login_verify():
             screen2.destroy()
             
         else:
-            password_not_recognized()
+            password_not_recognised()
 
     else:
         user_not_found()
