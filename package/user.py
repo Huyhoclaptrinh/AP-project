@@ -15,17 +15,17 @@ def user_win():
     bt_user_signup = Button(user, text="Sign up", width=20, command=user_register_win).pack(side=RIGHT)
 
 # When we login the right account, a tab will display with the word "Login Success".
-def login_sucess():
+def login_success():
     global screen3
     #screen3 = Toplevel()
     #screen3.title("Success")
     #screen3.geometry("150x100")
     #Label(screen3, text="Login Success").pack()
     #Button(screen3, text="OK", command=user_menu_win).pack()
-    messagebox.showinfo("","Log in sucess!",command=user_menu_win())
+    messagebox.showinfo("","Log in success!",command=user_menu_win())
     user.destroy()
 # When we write the wrong password, a tab will display with the word "Password Error".
-def password_not_recognised():
+def password_not_recognized():
     global screen4
     screen4 = Toplevel()
     screen4.title("Error")
@@ -58,7 +58,7 @@ def user_register():
     file.write(address_info + "\n")
     file.close()
 
-    Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).pack()
+    Label(screen1, text="Registration Success", fg="green", font=("calibri", 11)).pack()
 
 # Check for user login 
 def user_login_verify():
@@ -70,11 +70,11 @@ def user_login_verify():
         file1 = open(username1, "r")
         verify = file1.read().splitlines()
         if password1 in verify:
-            login_sucess()
+            login_success()
             screen2.destroy()
             
         else:
-            password_not_recognised()
+            password_not_recognized()
 
     else:
         user_not_found()
@@ -214,7 +214,7 @@ def search_win():
     search.geometry("300x300")
 
     # This def helps for showing the database from mysql that we selected
-    def show1():
+    def show2():
         mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
         mycursor = mysqldb.cursor()
         book_name_get = book_name_entry.get()
@@ -228,7 +228,7 @@ def search_win():
  
     
     Label(search, text="Book's name:").place(x=10, y=10)
-    Button(search, text="Search", command=show1 ,height = 1, width = 13).place(x=140, y=40)
+    Button(search, text="Search", command=show2 ,height = 1, width = 13).place(x=140, y=40)
     
     book_name_entry = Entry(search)
     book_name_entry.place(x=140, y=10)

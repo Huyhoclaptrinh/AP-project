@@ -209,7 +209,7 @@ def revenue_win():
     revenue.title("Revenue")
     revenue.state('zoomed')
     # This def is used to get the value of the table from the database
-    def GetValue(event):
+    def GetValue1(event):
        id_entry.delete(0, END)
        book_name_entry.delete(0, END)
        author_name_entry.delete(0, END)
@@ -225,7 +225,7 @@ def revenue_win():
        genre_entry.insert(0,select['genre'])
        price_entry.insert(0,select['price'])
     # Def for adding the data to the table and also database in mysql
-    def Add():
+    def Add1():
        
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
@@ -254,7 +254,7 @@ def revenue_win():
           mysqldb.rollback()
           mysqldb.close()
     # Def for updating the data to the table and also database in mysql
-    def update():
+    def update1():
        id_get = id_entry.get()
        book_name_get = book_name_entry.get()
        author_name_get = author_name_entry.get()
@@ -283,7 +283,7 @@ def revenue_win():
           mysqldb.rollback()
           mysqldb.close()
     # Def for deleting the data to the table and also database in mysql
-    def delete():
+    def delete1():
        id_get = id_entry.get()
        mysqldb=mysql.connector.connect(host="Localhost",user="root",password="12345678910",database="bookstore")
        mycursor=mysqldb.cursor()
@@ -321,7 +321,7 @@ def revenue_win():
         result = cursor.fetchall()[0][0]
         messagebox.showinfo("Total", result)
         # Def for showing the data from the database in mysql to the table
-    def show():
+    def show1():
          # Connecting mysql to this code and excute the variable and the command from mysql
           mysqldb = mysql.connector.connect(host="Localhost", user="root", password="12345678910", database="bookstore")
           mycursor = mysqldb.cursor()
@@ -363,9 +363,9 @@ def revenue_win():
     price_entry = Entry(revenue)
     price_entry.place(x=140, y=130)
     
-    Button(revenue, text="Add",command = Add,height=3, width= 13).place(x=300, y=130)
-    Button(revenue, text="Update",command = update,height=3, width= 13).place(x=410, y=130)
-    Button(revenue, text="Delete",command = delete,height=3, width= 13).place(x=520, y=130)
+    Button(revenue, text="Add",command = Add1,height=3, width= 13).place(x=300, y=130)
+    Button(revenue, text="Update",command = update1,height=3, width= 13).place(x=410, y=130)
+    Button(revenue, text="Delete",command = delete1,height=3, width= 13).place(x=520, y=130)
     Button(revenue, text="Sum",command = sum,height=3, width= 13).place(x=630, y=130)
 
     # Create a table
@@ -377,5 +377,5 @@ def revenue_win():
        listBox.grid(row=1, column=0, columnspan=2)
        listBox.place(x=10, y=200)
     
-    show()
-    listBox.bind('<Double-Button-1>',GetValue)
+    show1()
+    listBox.bind('<Double-Button-1>',GetValue1)
