@@ -1,8 +1,5 @@
-import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
-import numpy as np 
-import matplotlib.pyplot as plt 
 from tkinter import *
                                       # ADMIN WINDOW
 def admin_win():

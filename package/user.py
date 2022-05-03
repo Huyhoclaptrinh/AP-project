@@ -1,7 +1,5 @@
-import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
-import sqlite3
 import os
 from tkinter import *
                                              # USER WINDOW
