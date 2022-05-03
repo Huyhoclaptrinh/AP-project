@@ -9,7 +9,7 @@ window = Tk()
 window.title("Bookstore Management")
 window.geometry("1000x800")
 
-bg_image = tkinter.PhotoImage(file= "D:\Ri cọt\WinBG.png")
+bg_image = tkinter.PhotoImage(file= "WinBG.png")
 #create label
 label = Label(window, image=bg_image)
 label.place(x=0, y=0,relwidth=1,relheight=1)
@@ -24,7 +24,7 @@ canvas.create_text(400,250, text="BOOKSTORE MANAGEMENT", font=("Helvetica",20),f
 def resizer(e):
 	global bg1, resized_bg, new_bg
 	# Open our image ----------------------Lưu ý chỉnh lại direction file ảnh
-	bg1 = Image.open("D:\Ri cọt\WinBG.png")
+	bg1 = Image.open("WinBG.png")
 	# Resize the image
 	resized_bg = bg1.resize((e.width, e.height), Image.LANCZOS)
 	# Define our image again
