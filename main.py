@@ -1,5 +1,5 @@
 from tkinter import *
-import tkinter
+import tkinter 
 import package
 from package import admin
 from package import user
@@ -23,7 +23,7 @@ canvas.create_text(400,250, text="BOOKSTORE MANAGEMENT", font=("Helvetica",20),f
 
 def resizer(e):
 	global bg1, resized_bg, new_bg
-	# Open our image ----------------------Lưu ý chỉnh lại direction file ảnh
+	# Open our image 
 	bg1 = Image.open("WinBG.png")
 	# Resize the image
 	resized_bg = bg1.resize((e.width, e.height), Image.LANCZOS)
