@@ -1,6 +1,8 @@
 from tkinter import ttk, messagebox
 import mysql.connector
+import tkinter as tk
 from tkinter import *
+
                                       # ADMIN WINDOW
 def admin_win():
    admin = Tk()
